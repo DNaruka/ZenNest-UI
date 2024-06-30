@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Cookies from "universal-cookie";
-import Title from "../components/Title";
+import Title from "../components/Title/Title";
 const cookies = new Cookies();
 
 const LogIn = () => {

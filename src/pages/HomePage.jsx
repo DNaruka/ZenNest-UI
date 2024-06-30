@@ -1,6 +1,6 @@
 import { Center, Box, Text, Button, VStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import Title from "../components/Title";
+import Title from "../components/Title/Title";
 
 const HomePage = () => {
   return (

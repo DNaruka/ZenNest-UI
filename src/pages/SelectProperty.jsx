@@ -12,7 +12,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import Title from "../components/Title";
+import Title from "../components/Title/Title";
 import buildingImage from "../assets/buildingImage.png";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -21,6 +21,7 @@ import { motion } from "framer-motion";
 const MotionCard = motion(Card);
 
 import Cookies from "universal-cookie";
+import SignOutButton from "../components/SignOutButton/SignOutButton";
 const cookies = new Cookies();
 
 const SelectProperty = () => {
@@ -42,10 +43,8 @@ const SelectProperty = () => {
       .then((response) => {
         setListOfProperties(response.data);
       })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          setIsAuthorized(false);
-        }
+      .catch(() => {
+        setIsAuthorized(false);
       });
   }, []);
 
@@ -56,51 +55,54 @@ const SelectProperty = () => {
         <Center>
           {isAuthorized ? (
             <VStack marginTop="32px" h="80%" w="100%">
-              {listOfProperties.map((property, key) => (
-                <Link to={`/property/${property["property_id"]}`} key={key}>
-                  <MotionCard
-                    direction="column"
-                    overflow="hidden"
-                    variant="outline"
-                    size="lg"
-                    width={{ base: "350px", sm: "500px" }}
-                    whileHover={{
-                      scale: 1.1,
-                      border: "solid 1px",
-                      borderColor: "teal",
-                    }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <HStack>
-                      <Image
-                        src={buildingImage}
-                        boxSize={{ base: "50px", sm: "100px" }}
-                      />
-                      <VStack>
-                        <CardBody>
-                          <Box
-                            style={{
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              "text-overflow": "ellipsis",
-                            }}
-                          >
-                            <Heading
-                              size={{ base: "sm", sm: "md" }}
-                              width="240px"
+                <VStack>
+                {listOfProperties.map((property, key) => (
+                  <Link to={`/property/${property["property_id"]}`} key={key}>
+                    <MotionCard
+                      direction="column"
+                      overflow="hidden"
+                      variant="outline"
+                      size="lg"
+                      width={{ base: "350px", sm: "500px" }}
+                      whileHover={{
+                        scale: 1.1,
+                        border: "solid 1px",
+                        borderColor: "teal",
+                      }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <HStack>
+                        <Image
+                          src={buildingImage}
+                          boxSize={{ base: "50px", sm: "100px" }}
+                        />
+                        <VStack>
+                          <CardBody>
+                            <Box
+                              style={{
+                                whiteSpace: "nowrap",
+                                overflow: "hidden",
+                                "text-overflow": "ellipsis",
+                              }}
                             >
-                              {property.name}
-                            </Heading>
-                          </Box>
-                          {property.location.split("\n").map((line, key) => (
-                            <Text key={key}>{line}</Text>
-                          ))}
-                        </CardBody>
-                      </VStack>
-                    </HStack>
-                  </MotionCard>
-                </Link>
-              ))}
+                              <Heading
+                                size={{ base: "sm", sm: "md" }}
+                                width="240px"
+                              >
+                                {property.name}
+                              </Heading>
+                            </Box>
+                            {property.location.split("\n").map((line, key) => (
+                              <Text key={key}>{line}</Text>
+                            ))}
+                          </CardBody>
+                        </VStack>
+                      </HStack>
+                    </MotionCard>
+                  </Link>
+                ))}
+              </VStack>
+            <SignOutButton/>
             </VStack>
           ) : (
             <VStack marginTop="32px" h="80%" w="100%" spacing={8}>
