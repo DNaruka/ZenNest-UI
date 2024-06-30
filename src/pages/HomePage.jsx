@@ -9,8 +9,10 @@ const HomePage = () => {
           <Heading size="4xl">ZenNest</Heading>
         </Center>
         <VStack>
-          <Text size="4xl" >Simple Property Management System</Text>
-          <Link to="/login"><Button colorScheme="blue">Sign In</Button></Link>
+          <Text size="4xl">Simple Property Management System</Text>
+          <Link to="/login">
+            <Button>Sign In</Button>
+          </Link>
         </VStack>
       </Box>
     </Center>
