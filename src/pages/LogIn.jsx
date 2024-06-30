@@ -36,7 +36,7 @@ const LogIn = () => {
       formValid = false;
     }
 
-    if (password.length < 8) {
+    if (password.trim().length < 8) {
       setPasswordError(true);
       formValid = false;
     }
