@@ -12,9 +12,15 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import Cookies from "universal-cookie";
+import Title from "../components/Title";
+const cookies = new Cookies();
 
 const LogIn = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -30,14 +36,17 @@ const LogIn = () => {
       axios
         .post("http://localhost:3000/login", { email, password })
         .then((response) => {
-          console.log("Success!");
+          cookies.set("TOKEN", response.data.auth.token);
+          navigate("/selectProperty");
         })
         .catch((err) => {
           setFailedLogin(true);
           setFailedLoginMessage(err.response.data.message);
+        })
+        .finally(() => {
+          setSubmitted(false);
         });
     }
-    setSubmitted(false);
   }, [submitted]);
 
   const handleEmailChange = (e) => {
@@ -72,47 +81,46 @@ const LogIn = () => {
   return (
     <Box h="100vh" w="100vw">
       <AbsoluteCenter axs="both">
-        <HStack w="400px">
-          <form onSubmit={handleLoginSubmission}>
+        <Title />
+        <form onSubmit={handleLoginSubmission}>
+          <VStack>
             <VStack>
-              <VStack>
-                <FormControl isRequired isInvalid={emailError}>
-                  <FormLabel>Email address</FormLabel>
-                  <Input
-                    size="lg"
-                    type="email"
-                    onChange={handleEmailChange}
-                    value={email}
-                  />
-                  <FormErrorMessage>
-                    Please enter valid email address.
-                  </FormErrorMessage>
-                </FormControl>
-                <FormControl isRequired isInvalid={passwordError}>
-                  <FormLabel>Password</FormLabel>
-                  <Input
-                    size="lg"
-                    type="password"
-                    onChange={handlePasswordChange}
-                    value={password}
-                  />
-                  <FormErrorMessage>
-                    Please enter valid password.
-                  </FormErrorMessage>
-                </FormControl>
-                {failedLogin && <Text align="center">{failedLoginMessage}</Text>}
-              </VStack>
-              <HStack>
-                <Link to="/">
-                  <Button variant="outlne">Cancel</Button>
-                </Link>
-                <Button isLoading={submitted} type="submit" variant="solid">
-                  Sign In
-                </Button>
-              </HStack>
+              <FormControl isRequired isInvalid={emailError}>
+                <FormLabel fontWeight={600}>Email</FormLabel>
+                <Input
+                  size="lg"
+                  type="email"
+                  onChange={handleEmailChange}
+                  value={email}
+                />
+                <FormErrorMessage>
+                  Please enter valid email address.
+                </FormErrorMessage>
+              </FormControl>
+              <FormControl isRequired isInvalid={passwordError}>
+                <FormLabel fontWeight={600}>Password</FormLabel>
+                <Input
+                  size="lg"
+                  type="password"
+                  onChange={handlePasswordChange}
+                  value={password}
+                />
+                <FormErrorMessage>
+                  Please enter valid password.
+                </FormErrorMessage>
+              </FormControl>
+              {failedLogin && <Text align="center">{failedLoginMessage}</Text>}
             </VStack>
-          </form>
-        </HStack>
+            <HStack>
+              <Link to="/">
+                <Button variant="outlne">Cancel</Button>
+              </Link>
+              <Button isLoading={submitted} type="submit" variant="solid">
+                Sign In
+              </Button>
+            </HStack>
+          </VStack>
+        </form>
       </AbsoluteCenter>
     </Box>
   );
