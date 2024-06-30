@@ -17,7 +17,9 @@
     "framer-motion": "^11.2.12",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.24.0"
+    "react-router-dom": "^6.24.0",
+    "sass": "^1.77.6",
+    "universal-cookie": "^7.1.4"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
