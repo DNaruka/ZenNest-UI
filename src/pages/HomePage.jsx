@@ -5,7 +5,7 @@ import Title from "../components/Title";
 const HomePage = () => {
   return (
     <Center h="100vh">
-      <Box>
+      <Box marginBottom="8px">
         <Title />
         <VStack>
           <Text size="4xl">Simple Property Management System</Text>

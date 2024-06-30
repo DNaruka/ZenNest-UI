@@ -3,7 +3,7 @@ import "./Title.scss";
 
 const Title = () => {
   return (
-    <Center marginBottom="8px">
+    <Center>
       <Heading
         fontFamily="'Bodoni Moda', serif"
         fontWeight={900}

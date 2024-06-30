@@ -80,8 +80,10 @@ const LogIn = () => {
 
   return (
     <Box h="100vh" w="100vw">
-      <AbsoluteCenter axs="both">
-        <Title />
+      <AbsoluteCenter axis="both">
+        <Box marginBottom="8px">
+          <Title />
+        </Box>
         <form onSubmit={handleLoginSubmission}>
           <VStack>
             <VStack>
