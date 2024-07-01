@@ -27,6 +27,7 @@ const cookies = new Cookies();
 const SelectProperty = () => {
   const [listOfProperties, setListOfProperties] = useState([]);
   const [isAuthorized, setIsAuthorized] = useState(true);
+  const [name, setName] = useState("");
 
   useEffect(() => {
     const token = cookies.get("TOKEN");
@@ -41,7 +42,9 @@ const SelectProperty = () => {
     axios
       .request(config)
       .then((response) => {
-        setListOfProperties(response.data);
+        setListOfProperties(response.data.list);
+        console.log(response);
+        setName(response.data.name);
       })
       .catch(() => {
         setIsAuthorized(false);
@@ -55,7 +58,8 @@ const SelectProperty = () => {
         <Center>
           {isAuthorized ? (
             <VStack marginTop="32px" h="80%" w="100%">
-                <VStack>
+              <Heading size={{base:'lg', sm:'xl'}}>Hello {name},</Heading>
+              <VStack>
                 {listOfProperties.map((property, key) => (
                   <Link to={`/property/${property["property_id"]}`} key={key}>
                     <MotionCard
@@ -102,7 +106,7 @@ const SelectProperty = () => {
                   </Link>
                 ))}
               </VStack>
-            <SignOutButton/>
+              <SignOutButton />
             </VStack>
           ) : (
             <VStack marginTop="32px" h="80%" w="100%" spacing={8}>
