@@ -15,7 +15,7 @@ import {
 import Title from "../components/Title/Title";
 import buildingImage from "../assets/buildingImage.png";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { motion } from "framer-motion";
 const MotionCard = motion(Card);
@@ -50,6 +50,11 @@ const SelectProperty = () => {
       });
   }, []);
 
+  const navigate = useNavigate();
+  const addPropretyHandler = () => {
+    navigate("/addProperty");
+  };
+
   return (
     <Box marginTop="24px" h="80vh" w={{ base: "90vw", sm: "60vw" }}>
       <AbsoluteCenter axis="horizontal">
@@ -57,8 +62,8 @@ const SelectProperty = () => {
         <Center>
           {isAuthorized ? (
             <VStack marginTop="32px" h="80%" w="100%">
-              <Heading size={{base:'lg', sm:'xl'}}>Hello {name},</Heading>
-              <VStack>
+              <Heading size={{ base: "lg", sm: "xl" }}>Hello {name},</Heading>
+              <VStack mt="24px" spacing={4}>
                 {listOfProperties.map((property, key) => (
                   <Link to={`/property/${property["property_id"]}`} key={key}>
                     <MotionCard
@@ -69,8 +74,8 @@ const SelectProperty = () => {
                       width={{ base: "350px", sm: "500px" }}
                       whileHover={{
                         scale: 1.1,
-                        border: "solid 1px",
-                        borderColor: "teal",
+                        border: "solid 2px",
+                        borderColor: "#008080",
                       }}
                       whileTap={{ scale: 0.9 }}
                     >
@@ -105,6 +110,14 @@ const SelectProperty = () => {
                   </Link>
                 ))}
               </VStack>
+              <Button
+                variant="solid"
+                colorScheme="teal"
+                width="100%"
+                onClick={addPropretyHandler}
+              >
+                Add Property
+              </Button>
               <SignOutButton />
             </VStack>
           ) : (
@@ -116,7 +129,9 @@ const SelectProperty = () => {
                   <Button variant="outline">Cancel</Button>
                 </Link>
                 <Link to="/login">
-                  <Button variant="solid">Sign In</Button>
+                  <Button colorScheme="teal" variant="solid">
+                    Sign In
+                  </Button>
                 </Link>
               </HStack>
             </VStack>
