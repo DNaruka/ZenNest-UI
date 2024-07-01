@@ -30,7 +30,7 @@ const SelectProperty = () => {
 
   useEffect(() => {
     const token = cookies.get("TOKEN");
-    let config = {
+    const config = {
       method: "get",
       url: "http://localhost:3000/property",
       headers: {
@@ -82,7 +82,7 @@ const SelectProperty = () => {
                               style={{
                                 whiteSpace: "nowrap",
                                 overflow: "hidden",
-                                "text-overflow": "ellipsis",
+                                textOverflow: "ellipsis",
                               }}
                             >
                               <Heading
@@ -110,7 +110,7 @@ const SelectProperty = () => {
 
               <HStack>
                 <Link to="/">
-                  <Button variant="outlne">Cancel</Button>
+                  <Button variant="outline">Cancel</Button>
                 </Link>
                 <Link to="/login">
                   <Button variant="solid">Sign In</Button>

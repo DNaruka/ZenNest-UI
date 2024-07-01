@@ -21,6 +21,14 @@ const cookies = new Cookies();
 const LogIn = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = cookies.get("TOKEN");
+
+    if (token) {
+      navigate("/selectProperty");
+    }
+  }, []);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -115,7 +123,7 @@ const LogIn = () => {
             </VStack>
             <HStack>
               <Link to="/">
-                <Button variant="outlne">Cancel</Button>
+                <Button variant="outline">Cancel</Button>
               </Link>
               <Button isLoading={submitted} type="submit" variant="solid">
                 Sign In
