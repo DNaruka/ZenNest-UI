@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LogIn />} />
-        <Route path="/selectProperty/" element={<SelectProperty />} />
+        <Route path="/selectProperty" element={<SelectProperty />} />
         <Route path="/property/:propertyId" element={<Property/>} />
       </Routes>
     </BrowserRouter>
