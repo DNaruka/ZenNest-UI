@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -45,7 +45,10 @@ const Property = () => {
   const [isAuthorized, setIsAuthorized] = useState(true);
   const [isChanged, setIsChanged] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [deleted, setDeleted] = useState(false);
   const [ogData, setOgData] = useState([]);
+
+  const navigate = useNavigate();
 
   const token = cookies.get("TOKEN");
   const config = {
@@ -161,6 +164,25 @@ const Property = () => {
     }
     if (formValid) setSubmitted(true);
   };
+
+  useEffect(() => {
+    if (deleted) {
+      axios
+        .request({ ...config, method: "delete" })
+        .then(() => {
+          setDeleted(false);
+          navigate("/selectProperty");
+        })
+        .catch((err) => {
+          setDeleted(false);
+          console.log(err);
+        });
+    }
+  }, [deleted]);
+
+  const deleteHandler = () => {
+    setDeleted(true);
+  };
   return (
     <Box marginTop="24px" h="80vh" w={{ base: "90vw", sm: "60vw" }}>
       <AbsoluteCenter axis="horizontal" flexDirection="column">
@@ -247,16 +269,26 @@ const Property = () => {
                     />
                   </FormControl>
                 </VStack>
-                <Stack direction={{ base: "column", sm: "row" }}>
-                  <Link to="/selectProperty">
-                    <Button size="lg" variant="outline">
-                      Back
+                <VStack>
+                  <Stack direction={{ base: "column", sm: "row" }}>
+                    <Link to="/selectProperty">
+                      <Button size="lg" variant="outline">
+                        Back
+                      </Button>
+                    </Link>
+                    <Button type="submit" size="lg" isDisabled={!isChanged}>
+                      Save
                     </Button>
-                  </Link>
-                  <Button type="submit" size="lg" isDisabled={!isChanged}>
-                    Save
+                  </Stack>
+                  <Button
+                    size="lg"
+                    colorScheme="red"
+                    variant="solid"
+                    onClick={deleteHandler}
+                  >
+                    Delete
                   </Button>
-                </Stack>
+                </VStack>
               </VStack>
             </form>
           </Box>
