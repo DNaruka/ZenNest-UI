@@ -14,7 +14,7 @@ const SignOutButton = () => {
   };
 
   return (
-    <Button width="100%" onClick={onClickHandler}>
+    <Button variant="outline" colorScheme="red" width="100%" onClick={onClickHandler}>
       Sign Out
     </Button>
   );
