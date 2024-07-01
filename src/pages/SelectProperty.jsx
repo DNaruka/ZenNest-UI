@@ -43,7 +43,6 @@ const SelectProperty = () => {
       .request(config)
       .then((response) => {
         setListOfProperties(response.data.list);
-        console.log(response);
         setName(response.data.name);
       })
       .catch(() => {
