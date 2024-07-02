@@ -270,17 +270,7 @@ const Property = () => {
                     />
                   </FormControl>
                 </VStack>
-                <VStack>
-                  <Stack direction={{ base: "column", sm: "row" }}>
-                    <Link to="/selectProperty">
-                      <Button size="lg" variant="outline">
-                        Back
-                      </Button>
-                    </Link>
-                    <Button type="submit" size="lg" isDisabled={!isChanged}>
-                      Save
-                    </Button>
-                  </Stack>
+                <Stack direction={{ base: "column", sm: "row" }}>
                   <Button
                     size="lg"
                     colorScheme="red"
@@ -289,7 +279,21 @@ const Property = () => {
                   >
                     Delete
                   </Button>
-                </VStack>
+                  <Link to="/selectProperty">
+                    <Button size="lg" variant="outline">
+                      Back
+                    </Button>
+                  </Link>
+                  <Button
+                    type="submit"
+                    size="lg"
+                    isDisabled={!isChanged}
+                    variant="solid"
+                    colorScheme="teal"
+                  >
+                    Save
+                  </Button>
+                </Stack>
               </VStack>
             </form>
           </Box>
