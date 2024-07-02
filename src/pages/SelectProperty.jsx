@@ -33,7 +33,7 @@ const SelectProperty = () => {
     const token = cookies.get("TOKEN");
     const config = {
       method: "get",
-      url: "http://localhost:3000/property",
+      url: import.meta.env.VITE_BASEURL+"/property",
       headers: {
         Authorization: "Bearer " + token,
       },

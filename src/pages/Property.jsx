@@ -52,7 +52,7 @@ const Property = () => {
 
   const token = cookies.get("TOKEN");
   const config = {
-    url: "http://localhost:3000/property/" + propertyId,
+    url: import.meta.env.VITE_BASEURL + "/property/" + propertyId,
     headers: {
       Authorization: "Bearer " + token,
     },
@@ -206,6 +206,7 @@ const Property = () => {
                     onChange={nameChangeHandler}
                     whileFocus={{ scale: 1.1 }}
                     whileHover={{ scale: 1.1 }}
+                    placeholder="Property Name"
                   />
                 </FormControl>
                 <Stack
