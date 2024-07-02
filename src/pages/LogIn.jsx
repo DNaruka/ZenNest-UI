@@ -42,7 +42,7 @@ const LogIn = () => {
   useEffect(() => {
     if (submitted) {
       axios
-        .post("http://localhost:3000/login", { email, password })
+        .post(import.meta.env.VITE_BASEURL + "/login", { email, password })
         .then((response) => {
           cookies.set("TOKEN", response.data.auth.token);
           navigate("/selectProperty");

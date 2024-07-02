@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -46,7 +46,7 @@ const AddProperty = () => {
 
   const token = cookies.get("TOKEN");
   const config = {
-    url: "http://localhost:3000/property/",
+    url: import.meta.env.VITE_BASEURL+"/property/",
     headers: {
       Authorization: "Bearer " + token,
     },
@@ -149,6 +149,7 @@ const AddProperty = () => {
                     onChange={nameChangeHandler}
                     whileFocus={{ scale: 1.1 }}
                     whileHover={{ scale: 1.1 }}
+                    placeholder="Property Name"
                   />
                 </FormControl>
                 <Stack
